@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+  
+    "name": "Custom Event Dev Tools",
+    "version": "0.1",
+  
+    "description": "Custom Event javascript monitoring",
+    "author": "Hossein & Reza",
+  
+    "devtools_page": "./devtools.html",
+    "background" : { 
+      "persistent": true,
+      "scripts": ["background.js"]
+    }
+  }
