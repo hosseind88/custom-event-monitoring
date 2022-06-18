@@ -26,7 +26,7 @@ const App = () => {
     setShowListeners(true);
 
     listenerKeys.forEach(listenerKey => {
-      document.addEventListener(listenerKey, async (event: any) => {
+      window.addEventListener(listenerKey, async (event: any) => {
         setListeners(prevListeners => ({
           ...prevListeners,
           [listenerKey]: {

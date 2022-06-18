@@ -8,8 +8,27 @@
     "author": "Hossein & Reza",
   
     "devtools_page": "./devtools.html",
-    "background" : { 
-      "persistent": true,
-      "scripts": ["background.js"]
-    }
+    "action": {
+      "default_title": "execute.js will run (watch the Chrome DevTools' console)"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "permissions": [
+      "tabs",
+      "scripting"
+    ],
+    "host_permissions": [
+      "https://*/*",
+      "http://*/*"
+    ],
+    "content_scripts": [
+      {
+        "js": ["contentScript.js"],
+        "matches": [
+          "https://*/*",
+          "http://*/*"
+        ]
+      }
+    ]
   }
