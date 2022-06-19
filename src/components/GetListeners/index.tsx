@@ -35,7 +35,7 @@ const GetListeners = ({
   };
 
   return (
-    <form className="w-full h-full" onSubmit={onSubmit}>
+    <form className="w-full h-full my-2 mx-2" onSubmit={onSubmit}>
       <div className="flex flex-col flex-wrap -mx-3 mb-6">
         {Object.keys(listeners).map(k => (
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0" key={k}>

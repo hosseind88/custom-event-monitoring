@@ -20,7 +20,10 @@ const App = () => {
           ...prevListeners,
           [eventData.eventType]: {
             key: eventData.eventType,
-            eventQueue: [...prevListeners[eventData.eventType].eventQueue, eventData.data]
+            eventQueue: [
+              ...prevListeners[eventData.eventType].eventQueue,
+              eventData.data
+            ]
           }
         }));
       });
@@ -47,12 +50,12 @@ const App = () => {
 
   return (
     <div className="h-full bg-slate-600 flex">
-      <div className="flex p-2 flex-1">
+      <div className="flex flex-1 w-full">
         <Visibility show={!showListeners}>
           <GetListeners onConfirm={onGetListenersConfirm} />
         </Visibility>
         <Visibility show={showListeners}>
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full">
             {Object.entries(listeners).map(([listenerKey, listenerVal]) => (
               <Listener key={listenerKey} listener={listenerVal} />
             ))}
