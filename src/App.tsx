@@ -12,6 +12,25 @@ const App = () => {
   }>({});
   const [showListeners, setShowListeners] = React.useState(false);
 
+  React.useEffect(() => {
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.addEventListener('message', event => {
+        let eventData = JSON.parse(event.data);
+        setListeners(prevListeners => ({
+          ...prevListeners,
+          [eventData.eventType]: {
+            key: eventData.eventType,
+            eventQueue: [...prevListeners[eventData.eventType].eventQueue, eventData.data]
+          }
+        }));
+      });
+
+      navigator.serviceWorker.ready.then(registration => {
+        registration.active.postMessage('activate');
+      });
+    }
+  }, []);
+
   const onGetListenersConfirm = (listenerKeys: string[]) => {
     for (const listenerKey of listenerKeys) {
       setListeners(
@@ -24,18 +43,6 @@ const App = () => {
       );
     }
     setShowListeners(true);
-
-    listenerKeys.forEach(listenerKey => {
-      window.addEventListener(listenerKey, async (event: any) => {
-        setListeners(prevListeners => ({
-          ...prevListeners,
-          [listenerKey]: {
-            key: listenerKey,
-            eventQueue: [...prevListeners[listenerKey].eventQueue, event.detail]
-          }
-        }));
-      });
-    });
   };
 
   return (

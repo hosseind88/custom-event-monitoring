@@ -14,8 +14,13 @@ async function getTabId() {
   return (tabs.length > 0) ? tabs[0].id : null;
 }
 
+let source;
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
   console.log("Received %o from %o, frame", msg, sender.tab, sender.frameId);
-  console.log(document, window, global)
+  source.postMessage(msg);
   sendResponse("Gotcha!");
+});
+
+addEventListener('message', event => {
+  source = event.source;
 });

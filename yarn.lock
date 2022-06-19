@@ -1905,6 +1905,11 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+conditional-class@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/conditional-class/-/conditional-class-1.2.0.tgz#872ce698214dd54737d6a6b1d86847d502d62b3f"
+  integrity sha512-mYzPvZIcAEO7wYk2Trw8yCpMFdamM7t9Obq4V8Rs5ckyqNGmoiLTnbt78RGU8ortt/EApuaEcIYIzrsQQNTn6A==
+
 connect-history-api-fallback@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/connect-history-api-fallback/-/connect-history-api-fallback-1.6.0.tgz#8b32089359308d111115d81cad3fceab888f97bc"

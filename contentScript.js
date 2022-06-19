@@ -1,9 +1,5 @@
-document.addEventListener('aaa', function(e) {
-  console.log("whoa", e)
-  chrome.runtime.sendMessage({text: "hey"}, function(response) {
-      console.log("Response: ", response);
-  });
-
+document.addEventListener('custom-event-devtools', function(e) {
+  if (e.detail && typeof e.detail === 'object') {
+    chrome.runtime.sendMessage(JSON.stringify(e.detail));
+  }
 }, false);
-  
-  
