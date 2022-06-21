@@ -1,33 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GetListeners from './components/GetListeners';
-import Listener from './components/Listener';
+import GetEvents from './components/GetEvents';
+import Event from './components/Event';
 import Visibility from './components/Visiblity';
 import Icon from './icons';
 import './index.scss';
-import { Listener as ListenerInterface } from './types';
+import { EventInterface } from './types';
 
 const App = () => {
-  const [listeners, setListeners] = React.useState<{
-    [key: string]: ListenerInterface;
-  }>({});
-  const [showListeners, setShowListeners] = React.useState(false);
+  const [events, setEvents] = React.useState<EventInterface[]>([]);
+  const [eventKeys, setEventKeys] = React.useState<string[]>([]);
+  const [showEvents, setShowEvents] = React.useState(false);
   const [selectedEvent, setSelectedEvent] = React.useState('');
 
   React.useEffect(() => {
     if (navigator.serviceWorker) {
       navigator.serviceWorker.addEventListener('message', event => {
-        let eventData = JSON.parse(event.data);
-        setListeners(prevListeners => ({
-          ...prevListeners,
-          [eventData.eventName]: {
-            key: eventData.eventName,
-            eventQueue: [
-              ...prevListeners[eventData.eventName].eventQueue,
-              eventData.data
-            ]
+        let eventData: EventInterface = JSON.parse(event.data);
+        setEvents(prevEvents => [
+          ...prevEvents,
+          {
+            ...eventData,
+            timestamp: new Date().getTime()
           }
-        }));
+        ]);
       });
 
       navigator.serviceWorker.ready.then(registration => {
@@ -36,27 +32,19 @@ const App = () => {
     }
   }, []);
 
-  const onGetListenersConfirm = (listenerKeys: string[]) => {
-    for (const listenerKey of listenerKeys) {
-      setListeners(prevListeners => ({
-        ...prevListeners,
-        [listenerKey]: {
-          key: listenerKey,
-          eventQueue: []
-        }
-      }));
-    }
-    setShowListeners(true);
+  const onGetEventsConfirm = (eventKeys: string[]) => {
+    setShowEvents(true);
+    setEventKeys(eventKeys);
     navigator.serviceWorker.ready.then(registration => {
       registration.active.postMessage({
         key: 'events',
-        data: listenerKeys
+        data: eventKeys
       });
     });
   };
 
   const onBack = () => {
-    setShowListeners(false);
+    setShowEvents(false);
   };
 
   const onFilter = (eventName: string) => {
@@ -65,24 +53,27 @@ const App = () => {
 
   return (
     <div className="h-full flex">
+      {JSON.stringify(new Date())}
       <div className="flex flex-1 w-full">
-        <Visibility show={!showListeners}>
-          <GetListeners onConfirm={onGetListenersConfirm} />
+        <Visibility show={!showEvents}>
+          <GetEvents onConfirm={onGetEventsConfirm} />
         </Visibility>
-        <Visibility show={showListeners}>
+        <Visibility show={showEvents}>
           <div className="flex w-full">
             <div className="flex flex-col min-w-[240px] h-full bg-slate-100 items-center justify-between py-6 px-6">
               <div className="flex flex-col gap-4 w-full">
                 <Icon name="filter" style={{ margin: 'auto' }} />
-                {['All', ...Object.keys(listeners)].map(eventName => (
-                  <button
-                    onClick={() => onFilter(eventName)}
-                    key={eventName}
-                    className="py-3 px-6 rounded-lg border-2 border-teal-600 font-semibold hover:bg-teal-600 hover:text-white"
-                  >
-                    {eventName}
-                  </button>
-                ))}
+                <div className="flex flex-col overflow-y-auto gap-4">
+                  {['All', ...eventKeys].map(eventKey => (
+                    <button
+                      onClick={() => onFilter(eventKey)}
+                      key={eventKey}
+                      className="py-3 px-6 rounded-lg border-2 border-teal-600 font-semibold hover:bg-teal-600 hover:text-white"
+                    >
+                      {eventKey}
+                    </button>
+                  ))}
+                </div>
               </div>
               <button
                 className="w-24 border-none	rounded-md bg-teal-600 text-white py-2"
@@ -92,12 +83,12 @@ const App = () => {
               </button>
             </div>
             <div className="flex flex-col w-full overflow-y-auto">
-              {Object.entries(listeners)
-                .filter(([listenerKey]) =>
-                  !selectedEvent ? true : selectedEvent === listenerKey
+              {events
+                .filter(event =>
+                  !selectedEvent ? true : selectedEvent === event.key
                 )
-                .map(([listenerKey, listenerVal]) => (
-                  <Listener key={listenerKey} listener={listenerVal} />
+                .map(event => (
+                  <Event key={event.timestamp} event={event} />
                 ))}
             </div>
           </div>

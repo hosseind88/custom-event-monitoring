@@ -1,6 +1,7 @@
-export interface Listener {
+export interface EventInterface {
   key: string;
-  eventQueue: any[];
+  timestamp: number;
+  data: any;
 }
 
 export type IconName = 'chevron-up' | 'chevron-down' | 'filter';

@@ -1,35 +1,35 @@
 import React from 'react';
 
-const GetListeners = ({
+const GetEvents = ({
   onConfirm
 }: {
-  onConfirm: (listeners: string[]) => void;
+  onConfirm: (events: string[]) => void;
 }) => {
-  const [listeners, setListeners] = React.useState({});
+  const [events, setEvents] = React.useState({});
 
   React.useEffect(() => {
-    setListeners({
-      ...listeners,
-      'listener-0': ''
+    setEvents({
+      ...events,
+      'event-0': ''
     });
   }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onConfirm(Object.values(listeners));
+    onConfirm(Object.values(events));
   };
 
   const addListener = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setListeners({
-      ...listeners,
-      [`listener-${Object.keys(listeners).length}`]: ''
+    setEvents({
+      ...events,
+      [`event-${Object.keys(events).length}`]: ''
     });
   };
 
   const onListenerInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setListeners({
-      ...listeners,
+    setEvents({
+      ...events,
       [`${e.target.attributes.getNamedItem('id').value}`]: e.target.value
     });
   };
@@ -37,7 +37,7 @@ const GetListeners = ({
   return (
     <form className="w-full h-full my-2 mx-2" onSubmit={onSubmit}>
       <div className="flex flex-col flex-wrap -mx-3 mb-6">
-        {Object.keys(listeners).map(k => (
+        {Object.keys(events).map(k => (
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0" key={k}>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -53,7 +53,7 @@ const GetListeners = ({
         onClick={addListener}
         className="bg-teal-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        Add Listener +
+        Add Event +
       </button>
       <button className="bg-teal-600 hover:bg-green-700 mx-5 text-white font-bold py-2 px-4 rounded">
         Confirm
@@ -62,4 +62,4 @@ const GetListeners = ({
   );
 };
 
-export default GetListeners;
+export default GetEvents;

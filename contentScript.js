@@ -1,13 +1,13 @@
 chrome.runtime.onMessage.addListener(function (msg) {
   if (msg.events) {
-    msg.events.forEach(eventName => {
+    msg.events.forEach(event => {
       document.addEventListener(
-        eventName,
+        event,
         function (e) {
           if (e.detail && typeof e.detail === 'object') {
             chrome.runtime.sendMessage(
               JSON.stringify({
-                eventName,
+                key: event,
                 data: e.detail
               })
             );
