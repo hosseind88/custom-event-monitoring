@@ -1,17 +1,21 @@
-const events = localStorage.getItem('custom-events');
-if (events) {
-  events.split(',').forEach(eventName => {
-    document.addEventListener(
-      eventName,
-      function (e) {
-        if (e.detail && typeof e.detail === 'object') {
-          chrome.runtime.sendMessage(JSON.stringify({
-            eventName,
-            data: e.detail
-          }));
-        }
-      },
-      false
-    );
-  });
-}
+chrome.runtime.onMessage.addListener(function (msg) {
+  if (msg.events) {
+    msg.events.forEach(eventName => {
+      document.addEventListener(
+        eventName,
+        function (e) {
+          if (e.detail && typeof e.detail === 'object') {
+            chrome.runtime.sendMessage(
+              JSON.stringify({
+                eventName,
+                data: e.detail
+              })
+            );
+          }
+        },
+        false
+      );
+    });
+  }
+  return true;
+});

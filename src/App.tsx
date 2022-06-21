@@ -48,7 +48,10 @@ const App = () => {
     }
     setShowListeners(true);
     navigator.serviceWorker.ready.then(registration => {
-      registration.active.postMessage(listenerKeys);
+      registration.active.postMessage({
+        key: 'events',
+        data: listenerKeys
+      });
     });
   };
 
@@ -75,7 +78,7 @@ const App = () => {
                   <button
                     onClick={() => onFilter(eventName)}
                     key={eventName}
-                    className="py-3 px-6 rounded-lg border-2 border-teal-600 font-semibold text-2xl hover:bg-teal-600 hover:text-white"
+                    className="py-3 px-6 rounded-lg border-2 border-teal-600 font-semibold hover:bg-teal-600 hover:text-white"
                   >
                     {eventName}
                   </button>

@@ -1,11 +1,13 @@
 let source;
-chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
-  console.log("Received %o from %o, frame", msg, sender.tab, sender.frameId);
+chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
   source.postMessage(msg);
-  sendResponse("Gotcha!");
 });
 
 addEventListener('message', event => {
-  console.log('aaaaaa', event)
+  if (event.data.key === 'events') {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { events: event.data.data });
+    });
+  }
   source = event.source;
 });
