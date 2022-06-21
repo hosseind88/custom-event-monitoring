@@ -26,3 +26,15 @@ now you will see this:
 tada 🎉.
 
 and also you can click on event buttons and filter events you see. or click on back button and edit the events you defined.
+
+we have not deployed this extention yet. so until then, you can clone this project and do these steps:
+
+```
+yarn install
+yarn run build
+```
+
+then you have a dist folder. go to:
+extentions > click on Developer Mode > Load Unpacked > Select dist folder and hit save
+
+done. you now have it in your devtools.
