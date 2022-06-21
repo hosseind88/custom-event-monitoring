@@ -1,10 +1,6 @@
-interface EventDetail {
-  detail: any;
-}
-
 export interface Listener {
   key: string;
-  eventQueue: EventDetail[];
+  eventQueue: any[];
 }
 
-export type IconName = 'chevron-up' | 'chevron-down';
+export type IconName = 'chevron-up' | 'chevron-down' | 'filter';

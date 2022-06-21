@@ -51,11 +51,11 @@ const GetListeners = ({
       </div>
       <button
         onClick={addListener}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-teal-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Add Listener +
       </button>
-      <button className="bg-blue-500 hover:bg-green-700 mx-5 text-white font-bold py-2 px-4 rounded">
+      <button className="bg-teal-600 hover:bg-green-700 mx-5 text-white font-bold py-2 px-4 rounded">
         Confirm
       </button>
     </form>
