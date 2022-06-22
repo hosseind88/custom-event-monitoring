@@ -5,46 +5,36 @@ const GetEvents = ({
 }: {
   onConfirm: (events: string[]) => void;
 }) => {
-  const [events, setEvents] = React.useState({});
-
-  React.useEffect(() => {
-    setEvents({
-      ...events,
-      'event-0': ''
-    });
-  }, []);
+  const [events, setEvents] = React.useState<string[]>(['']);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onConfirm(Object.values(events));
+    onConfirm(events);
   };
 
   const addListener = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setEvents({
-      ...events,
-      [`event-${Object.keys(events).length}`]: ''
-    });
+    setEvents([...events, '']);
   };
 
-  const onListenerInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEvents({
-      ...events,
-      [`${e.target.attributes.getNamedItem('id').value}`]: e.target.value
-    });
+  const onListenerInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    idx: number
+  ) => {
+    setEvents(events.map((event, d) => (d === idx ? e.target.value : event)));
   };
 
   return (
     <form className="w-full h-full my-2 mx-2" onSubmit={onSubmit}>
       <div className="flex flex-col flex-wrap -mx-3 mb-6">
-        {Object.keys(events).map(k => (
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0" key={k}>
+        {events.map((evntname, idx) => (
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0" key={idx}>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               type="text"
               placeholder="Listener key"
-              id={k}
-              onChange={onListenerInputChange}
+              value={evntname}
+              onChange={e => onListenerInputChange(e, idx)}
             />
           </div>
         ))}
