@@ -21,7 +21,7 @@ const GetEvents = ({
     e: React.ChangeEvent<HTMLInputElement>,
     idx: number
   ) => {
-    setEvents(events.map((event, d) => (d === idx ? e.target.value : event)));
+    setEvents(events.map((event, i) => (i === idx ? e.target.value : event)));
   };
 
   return (
