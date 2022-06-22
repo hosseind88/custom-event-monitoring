@@ -2,7 +2,7 @@
   "name": "devtools-2",
   "version": "1.0.0",
   "scripts": {
-    "build": "rm -rf dist && webpack --mode production && cp ./devtools.js dist && cp ./manifest.json dist && cp ./contentScript.js dist && cp ./background.js dist && cp ./devtools.html dist && cp ./execute.js dist",
+    "build": "rm -rf dist && webpack --mode production && cp ./devtools.js dist && cp ./icon.png dist && cp ./manifest.json dist && cp ./contentScript.js dist && cp ./background.js dist && cp ./devtools.html dist && cp ./execute.js dist",
     "build:dev": "webpack --mode development",
     "build:start": "cd dist && PORT=8080 npx serve",
     "start": "webpack serve --open --mode development",

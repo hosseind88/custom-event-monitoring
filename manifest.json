@@ -1,15 +1,12 @@
 {
     "manifest_version": 3,
-  
-    "name": "Custom Event Dev Tools",
+    "name": "Custom Event Devtools",
     "version": "0.1",
-  
-    "description": "Custom Event javascript monitoring",
+    "description": "You can monitor events you dispatch by dispatchEvent api",
     "author": "Hossein & Reza",
-  
     "devtools_page": "./devtools.html",
     "action": {
-      "default_title": "execute.js will run (watch the Chrome DevTools' console)"
+      "default_title": "Custom Event Devtools"
     },
     "background": {
       "service_worker": "background.js"
@@ -18,6 +15,14 @@
       "tabs",
       "scripting"
     ],
+    "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "browser_action": {
+      "default_icon": "icon.png"
+    },
     "host_permissions": [
       "https://*/*",
       "http://*/*"

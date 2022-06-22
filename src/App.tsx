@@ -53,7 +53,6 @@ const App = () => {
 
   return (
     <div className="h-full flex">
-      {JSON.stringify(new Date())}
       <div className="flex flex-1 w-full">
         <Visibility show={!showEvents}>
           <GetEvents onConfirm={onGetEventsConfirm} />
