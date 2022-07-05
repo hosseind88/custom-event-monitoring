@@ -47,6 +47,10 @@ const App = () => {
     setShowEvents(false);
   };
 
+  const onClear = () => {
+    setEvents([]);
+  }
+
   const onFilter = (eventName: string) => {
     setSelectedEvent(eventName === 'All' ? '' : eventName);
   };
@@ -74,12 +78,20 @@ const App = () => {
                   ))}
                 </div>
               </div>
-              <button
-                className="w-24 border-none	rounded-md bg-teal-600 text-white py-2"
-                onClick={onBack}
-              >
-                Back
-              </button>
+              <div className="flex gap-2">
+                <button
+                  className="w-24 border-none	rounded-md bg-teal-600 text-white py-2"
+                  onClick={onBack}
+                >
+                  Back
+                </button>
+                <button
+                  className="w-24 border-none	rounded-md bg-teal-600 text-white py-2"
+                  onClick={onClear}
+                >
+                  Clear
+                </button>
+              </div>
             </div>
             <div className="flex flex-col w-full overflow-y-auto">
               {events
